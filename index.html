@@ -19,6 +19,9 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="style.css" />
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
     <title>Work Day Scheduler</title>
   </head>
 
@@ -28,11 +31,22 @@
       <p class="lead">A simple calendar app for scheduling your work day</p>
       <p id="currentDay" class="lead"></p>
     </header>
-    <div class="container">
+
+    <div class="container" id="timeblocks">
       <!-- Timeblocks go here -->
     </div>
+    
 
+    <!-- Link to JS-->
+    <script src="script.js"></script>
+    <!-- Link for moment.js -->
+    <script src="moment.js"></script>
+    <script>
+      moment().format();
+    </script>
+    <!-- Link for jQuery Bootstrap-->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+
   </body>
 </html>
