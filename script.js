@@ -1,7 +1,6 @@
 $(document).ready(function(){
 
   var day = moment().format('LL');
-  var currentTime = moment().format('LT');
   var currentHour = moment().format('H');
   var timeblocksContainer = $("#timeblocks");
 
@@ -13,25 +12,26 @@ $(document).ready(function(){
   for (var hour = 9; hour <=17; hour++) {
     var newRow = $("<div>");
     var newTimeBlock = $("<p>");
+    var descriptionContainer = $("<div>")
     var newDescription = $("<p>");
+    var newSaveButton = $("<div>");
 
     $(newRow).addClass("row");
     $(newTimeBlock).addClass("time-block col-1");
-    $(newDescription).addClass("description col-11");
+    $(descriptionContainer).addClass("description-container col-10")
+    $(newDescription).addClass("description");
+    $(newSaveButton).addClass("saveBtn col-1");
 
     // checks what background color should be for each row
     if (currentHour < hour) {
-      $(newRow).addClass("future");
+      $(descriptionContainer).addClass("future");
     }
     else if (currentHour == hour) {
-      $(newRow).addClass("present");
+      $(descriptionContainer).addClass("present");
     }
     else {
-      $(newRow).addClass("past");
+      $(descriptionContainer).addClass("past");
     }
-    
-    console.log(hour);
-    console.log(currentHour);
   
     // formats to am and pm
     if (hour < 12) {
@@ -45,18 +45,33 @@ $(document).ready(function(){
     }
 
     // creates space for event description
-    $(newDescription).text("")
+    $(newDescription).text("Description");
+    
+    // creates save button text
+    $(newSaveButton).text("Save");
 
     // append elements
     $(timeblocksContainer).append(newRow);
     $(newRow).append(newTimeBlock);
-    $(newRow).append(newDescription);
+    $(newRow).append(descriptionContainer);
+    $(descriptionContainer).append(newDescription);
+    $(newRow).append(newSaveButton);
   }
 
-  // need to add code to have modal pop up
-  $(".row").on("click", function(){
-    console.log("A row has been clicked");
+  // click events to add event when description or time block is clicked
+  $(".description-container").on("click", function(){
+    console.log("description container clicked");
   });
+
+  $(".time-block").on("click", function(){
+    console.log("time block clicked");
+  });
+
+  // click event for save button
+  $(".saveBtn").on("click", function(){
+    console.log("save button clicked");
+  });
+
 });
 
 
