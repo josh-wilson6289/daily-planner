@@ -47,21 +47,11 @@ $(document).ready(function(){
     // creates space for event description
     $(newDescription).text("")
 
-
-    
-
-    // changes background color dependant on current hour
-    if (newRow.hour < currentHour) {
-      $(newRow).css("background-color", "black");
-    }
-
     // append elements
     $(timeblocksContainer).append(newRow);
     $(newRow).append(newTimeBlock);
     $(newRow).append(newDescription);
   }
-
-
 
   // need to add code to have modal pop up
   $(".row").on("click", function(){
