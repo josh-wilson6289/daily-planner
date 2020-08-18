@@ -21,13 +21,13 @@ $(document).ready(function(){
 
     // checks what background color should be for each row
     if (currentHour < hour) {
-      $(newRow).css("background-color", "green");
+      $(newRow).addClass("future");
     }
     else if (currentHour == hour) {
-      $(newRow).css("background-color", "red");
+      $(newRow).addClass("present");
     }
     else {
-      $(newRow).css("background-color", "grey");
+      $(newRow).addClass("past");
     }
     
     console.log(hour);
