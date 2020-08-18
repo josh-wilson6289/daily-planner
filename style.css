@@ -26,13 +26,18 @@ textarea{
   text-align: center;
   padding-top: auto;
   padding-bottom: auto;
+  padding-top: 30px;
 }
 
 .time-block {
+ border-bottom-style: dotted;
+ border-bottom-width: 1px;
+}
+
+.time {
   text-align: center;
-  border-radius: 15px;
-  margin-top: auto;
-  margin-bottom: auto;
+  padding-top: 30px;
+ 
 }
 
 .row {

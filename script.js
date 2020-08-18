@@ -11,13 +11,15 @@ $(document).ready(function(){
   // creates blocks from 9 am to 5 pm
   for (var hour = 9; hour <=17; hour++) {
     var newRow = $("<div>");
+    var newTimeBlockContainer = $("<div>");
     var newTimeBlock = $("<p>");
     var descriptionContainer = $("<div>")
     var newDescription = $("<p>");
     var newSaveButton = $("<div>");
 
     $(newRow).addClass("row");
-    $(newTimeBlock).addClass("time-block col-1");
+    $(newTimeBlockContainer).addClass("time-block col-1");
+    $(newTimeBlock).addClass("time")
     $(descriptionContainer).addClass("description-container col-10")
     $(newDescription).addClass("description");
     $(newSaveButton).addClass("saveBtn col-1");
@@ -52,7 +54,8 @@ $(document).ready(function(){
 
     // append elements
     $(timeblocksContainer).append(newRow);
-    $(newRow).append(newTimeBlock);
+    $(newRow).append(newTimeBlockContainer);
+    $(newTimeBlockContainer).append(newTimeBlock);
     $(newRow).append(descriptionContainer);
     $(descriptionContainer).append(newDescription);
     $(newRow).append(newSaveButton);
