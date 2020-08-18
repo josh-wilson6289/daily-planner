@@ -15,14 +15,13 @@ $(document).ready(function(){
     var newTimeBlock = $("<p>");
     var descriptionContainer = $("<div>")
     var newDescription = $("<p>");
-    var newSaveButton = $("<div>");
 
     $(newRow).addClass("row");
     $(newTimeBlockContainer).addClass("time-block col-1");
     $(newTimeBlock).addClass("time")
-    $(descriptionContainer).addClass("description-container col-10")
+    $(descriptionContainer).addClass("description-container col-11")
     $(newDescription).addClass("description");
-    $(newSaveButton).addClass("saveBtn col-1");
+
 
     // checks what background color should be for each row
     if (currentHour < hour) {
@@ -47,32 +46,19 @@ $(document).ready(function(){
     }
 
     // creates space for event description
-    $(newDescription).text("Description");
+    $(newDescription).text("");
     
-    // creates save button text
-    $(newSaveButton).text("Save");
-
     // append elements
     $(timeblocksContainer).append(newRow);
     $(newRow).append(newTimeBlockContainer);
     $(newTimeBlockContainer).append(newTimeBlock);
     $(newRow).append(descriptionContainer);
     $(descriptionContainer).append(newDescription);
-    $(newRow).append(newSaveButton);
   }
 
   // click events to add event when description or time block is clicked
-  $(".description-container").on("click", function(){
+  $(".row").on("click", function(){
     console.log("description container clicked");
-  });
-
-  $(".time-block").on("click", function(){
-    console.log("time block clicked");
-  });
-
-  // click event for save button
-  $(".saveBtn").on("click", function(){
-    console.log("save button clicked");
   });
 
 });
