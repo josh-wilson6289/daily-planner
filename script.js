@@ -13,13 +13,13 @@ $(document).ready(function(){
     var newRow = $("<div>");
     var newTimeBlockContainer = $("<div>");
     var newTimeBlock = $("<p>");
-    var descriptionContainer = $("<div>")
+    var descriptionContainer = $("<div>");
     var newDescription = $("<p>");
 
     $(newRow).addClass("row");
-    $(newTimeBlockContainer).addClass("time-block col-1");
+    $(newTimeBlockContainer).addClass("time-block container-fluid col-1");
     $(newTimeBlock).addClass("time")
-    $(descriptionContainer).addClass("description-container col-11")
+    $(descriptionContainer).addClass("description-container container-fluid col-11")
     $(newDescription).addClass("description");
 
 
@@ -57,8 +57,9 @@ $(document).ready(function(){
   }
 
   // click events to add event when description or time block is clicked
-  $(".row").on("click", function(){
-    console.log("description container clicked");
+  $(".row").click(function(){
+    // console.log("button clicked");
+    $('#myModal').modal('show');
   });
 
 });
