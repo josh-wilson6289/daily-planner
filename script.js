@@ -15,13 +15,19 @@ $(document).ready(function(){
     var newTimeBlock = $("<p>");
     var descriptionContainer = $("<div>");
     var newDescription = $("<p>");
-
+    
+    // add necessary classes to each block
     $(newRow).addClass("row");
     $(newTimeBlockContainer).addClass("time-block container-fluid col-1");
     $(newTimeBlock).addClass("time")
     $(descriptionContainer).addClass("description-container container-fluid col-11")
     $(newDescription).addClass("description");
 
+    // adds data attributes to be able to target modal
+    $(newRow).attr('toggle', 'modal');
+    $(newRow).attr('target', '#myModal');
+    $(newTimeBlockContainer).attr('toggle', 'modal');
+    $(newTimeBlockContainer).attr('target', '#myModal');
 
     // checks what background color should be for each row
     if (currentHour < hour) {
