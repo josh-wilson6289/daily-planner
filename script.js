@@ -1,6 +1,6 @@
-$(document).ready(function(){
+$(document).ready(function () {
 
-  var day = moment().format('LL');
+  var currentDay = moment().format('LL');
   var currentHour = moment().format('H');
   var timeblocksContainer = $("#timeblocks");
   var rowHourValue;
@@ -8,22 +8,23 @@ $(document).ready(function(){
   
   // checks local storage for stored events
   var storedEvents = JSON.parse(localStorage.getItem("newEvent"));
-  
+
+  // sets stored events to an empty array if not present or if not the current day
   if (storedEvents == null) {
     storedEvents = [];
   }
-
+   
   // displays current day at the top of the screen
-  $("#currentDay").text(day);
+  $("#currentDay").text(currentDay);
 
   // creates blocks from 9 am to 5 pm
-  for (hour = 9; hour <=17; hour++) {
+  for (hour = 9; hour <= 17; hour++) {
     var newRow = $("<div>");
     var newTimeBlockContainer = $("<div>");
     var newTimeBlock = $("<p>");
     var eventContainer = $("<div>");
     var displayEvent = $("<p>");
-    
+
     // adds necessary classes to each block
     $(newRow).addClass("row");
     $(newTimeBlockContainer).addClass("time-block container-fluid col-1");
@@ -36,12 +37,12 @@ $(document).ready(function(){
     $(newRow).attr('target', '#myModal');
     $(newTimeBlockContainer).attr('toggle', 'modal');
     $(newTimeBlockContainer).attr('target', '#myModal');
-    
-    // creates data attributes for rows and events
+
+    // creates each block an hour data attribute for the row and displaying events
     $(newRow).attr("data-hour", hour);
     $(displayEvent).attr("id", hour);
-    
-    // checks what background color should be for each row
+
+    // checks what background color should be for each row and gives it the appropriate class
     if (currentHour < hour) {
       $(eventContainer).addClass("future");
     }
@@ -51,7 +52,7 @@ $(document).ready(function(){
     else {
       $(eventContainer).addClass("past");
     }
-  
+
     // formats to am and pm
     if (hour < 12) {
       $(newTimeBlock).text(hour + " am");
@@ -62,17 +63,17 @@ $(document).ready(function(){
     else {
       $(newTimeBlock).text((hour - 12) + " pm");
     }
-      // loops through local storage to check if there is a description to display for given hour block
-      for (var i=0; i < storedEvents.length; i++) {
-        if (storedEvents[i].eventHour === hour) {
-          $(displayEvent).text(storedEvents[i].eventDescription);
-          break;
-        }
-        else {
-          $(displayEvent).text("");
-        } 
-      }  
-        
+    // loops through local storage to check if there is a description to display for given hour block
+    for (var i = 0; i < storedEvents.length; i++) {
+      if (storedEvents[i].eventHour === hour) {
+        $(displayEvent).text(storedEvents[i].eventDescription);
+        break;
+      }
+      else {
+        $(displayEvent).text("");
+      }
+    }
+
     // append elements
     $(timeblocksContainer).append(newRow);
     $(newRow).append(newTimeBlockContainer);
@@ -82,36 +83,47 @@ $(document).ready(function(){
   }
 
   // click events to trigger modal
-  $(".row").click(function(){
+  $(".row").click(function () {
+
+    // grabs the hour value for the particular row clicked
     rowHourValue = $(this).data("hour");
+
+    // shows modal
     $('#myModal').modal('show');
   });
 
   // click event to save the userInput and rowHourValue for the new event
-  $(".btn-primary").click(function(){
+  $(".btn-primary").click(function () {
     event.preventDefault();
+
+    // gets the value of the textarea in the modal
     var userInput = $("textarea").val();
-    
+
+    // concatinates the row hour value to the blank id created in line 43.  Adds the userInput text.
     $("#" + rowHourValue).text(userInput);
+
+    // clears text area and modal
     $("textarea").val("");
     $('#myModal').modal('hide');
 
+    // create object to send to local storate
     newEvent = {
       "eventHour": rowHourValue,
       "eventDescription": userInput
     };
-      
+
+    // checks to see if there is already an event for the particular time.  If so, it replaces it with the latest event.
     localStorage.setItem("newEvent", JSON.stringify(newEvent));
-      for(var i = 0; i <storedEvents.length; i++) {
-        if (storedEvents[i].eventHour === rowHourValue) {
-          storedEvents.splice(i,1);
-          i--;
-        }
+    for (var i = 0; i < storedEvents.length; i++) {
+      if (storedEvents[i].eventHour === rowHourValue) {
+        storedEvents.splice(i, 1);
+        i--;
       }
+    }
     storedEvents.push(newEvent);
     localStorage.setItem("newEvent", JSON.stringify(storedEvents));
-    
-  })  
+
+  })
 });
 
 
