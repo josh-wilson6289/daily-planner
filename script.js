@@ -62,9 +62,7 @@ $(document).ready(function(){
     else {
       $(newTimeBlock).text((hour - 12) + " pm");
     }
-      // creates space for event description
-    
-
+      // loops through local storage to check if there is a description to display for given hour block
       for (var i=0; i < storedEvents.length; i++) {
         if (storedEvents[i].eventHour === hour) {
           $(displayEvent).text(storedEvents[i].eventDescription);
@@ -75,7 +73,6 @@ $(document).ready(function(){
         } 
       }  
         
-
     // append elements
     $(timeblocksContainer).append(newRow);
     $(newRow).append(newTimeBlockContainer);
@@ -105,6 +102,12 @@ $(document).ready(function(){
     };
       
     localStorage.setItem("newEvent", JSON.stringify(newEvent));
+      for(var i = 0; i <storedEvents.length; i++) {
+        if (storedEvents[i].eventHour === rowHourValue) {
+          storedEvents.splice(i,1);
+          i--;
+        }
+      }
     storedEvents.push(newEvent);
     localStorage.setItem("newEvent", JSON.stringify(storedEvents));
     
