@@ -3,43 +3,53 @@ $(document).ready(function(){
   var day = moment().format('LL');
   var currentHour = moment().format('H');
   var timeblocksContainer = $("#timeblocks");
-  var rowHour;
+  var rowHourValue;
+  var newEvent;
+  
+  // checks local storage for stored events
+  var storedEvents = JSON.parse(localStorage.getItem("newEvent"));
+  
+  if (storedEvents == null) {
+    storedEvents = [];
+  }
 
   // displays current day at the top of the screen
   $("#currentDay").text(day);
 
   // creates blocks from 9 am to 5 pm
-  for (var hour = 9; hour <=17; hour++) {
+  for (hour = 9; hour <=17; hour++) {
     var newRow = $("<div>");
     var newTimeBlockContainer = $("<div>");
     var newTimeBlock = $("<p>");
-    var descriptionContainer = $("<div>");
-    var newDescription = $("<p>");
+    var eventContainer = $("<div>");
+    var displayEvent = $("<p>");
     
-    // add necessary classes to each block
+    // adds necessary classes to each block
     $(newRow).addClass("row");
     $(newTimeBlockContainer).addClass("time-block container-fluid col-1");
     $(newTimeBlock).addClass("time")
-    $(descriptionContainer).addClass("description-container container-fluid col-11")
-    $(newDescription).addClass("description");
+    $(eventContainer).addClass("description-container container-fluid col-11")
+    $(displayEvent).addClass("description");
 
     // adds data attributes to be able to target modal
     $(newRow).attr('toggle', 'modal');
     $(newRow).attr('target', '#myModal');
-    $(newRow).attr("data-hour", hour);
     $(newTimeBlockContainer).attr('toggle', 'modal');
     $(newTimeBlockContainer).attr('target', '#myModal');
-    $(newDescription).attr("id", hour);
+    
+    // creates data attributes for rows and events
+    $(newRow).attr("data-hour", hour);
+    $(displayEvent).attr("id", hour);
     
     // checks what background color should be for each row
     if (currentHour < hour) {
-      $(descriptionContainer).addClass("future");
+      $(eventContainer).addClass("future");
     }
     else if (currentHour == hour) {
-      $(descriptionContainer).addClass("present");
+      $(eventContainer).addClass("present");
     }
     else {
-      $(descriptionContainer).addClass("past");
+      $(eventContainer).addClass("past");
     }
   
     // formats to am and pm
@@ -52,32 +62,52 @@ $(document).ready(function(){
     else {
       $(newTimeBlock).text((hour - 12) + " pm");
     }
-
-    // creates space for event description
-    $(newDescription).text("");
+      // creates space for event description
     
+
+      for (var i=0; i < storedEvents.length; i++) {
+        if (storedEvents[i].eventHour === hour) {
+          $(displayEvent).text(storedEvents[i].eventDescription);
+        }
+        else {
+          $(displayEvent).text("");
+        } 
+      }  
+        
+
     // append elements
     $(timeblocksContainer).append(newRow);
     $(newRow).append(newTimeBlockContainer);
     $(newTimeBlockContainer).append(newTimeBlock);
-    $(newRow).append(descriptionContainer);
-    $(descriptionContainer).append(newDescription);
+    $(newRow).append(eventContainer);
+    $(eventContainer).append(displayEvent);
   }
 
-  // click events to add event when description or time block is clicked
+  // click events to trigger modal
   $(".row").click(function(){
-    rowHour = $(this).data("hour");
+    rowHourValue = $(this).data("hour");
     $('#myModal').modal('show');
   });
 
+  // click event to save the userInput and rowHourValue for the new event
   $(".btn-primary").click(function(){
     event.preventDefault();
     var userInput = $("textarea").val();
-    $("#" + rowHour).text(userInput);
-    // $("#timeblocks").find("[data-hour='" + rowHour + "']").find(".description")[0].textContent = userInput;
+    
+    $("#" + rowHourValue).text(userInput);
     $("textarea").val("");
     $('#myModal').modal('hide');
-  })
+
+    newEvent = {
+      "eventHour": rowHourValue,
+      "eventDescription": userInput
+    };
+      
+    localStorage.setItem("newEvent", JSON.stringify(newEvent));
+    storedEvents.push(newEvent);
+    localStorage.setItem("newEvent", JSON.stringify(storedEvents));
+    
+  })  
 });
 
 
