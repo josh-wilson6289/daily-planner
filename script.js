@@ -68,6 +68,7 @@ $(document).ready(function(){
       for (var i=0; i < storedEvents.length; i++) {
         if (storedEvents[i].eventHour === hour) {
           $(displayEvent).text(storedEvents[i].eventDescription);
+          break;
         }
         else {
           $(displayEvent).text("");
