@@ -1,4 +1,4 @@
-# daily-planner
+# Daily Planner
 
 <img src = "daily-planner.png" alt="screen shot of daily planner">
 
