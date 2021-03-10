@@ -124,6 +124,38 @@ $(document).ready(function () {
     localStorage.setItem("newEvent", JSON.stringify(storedEvents));
 
   })
+
+  // code for delete button
+  $(".btn-danger").click(function () {
+    event.preventDefault();
+
+    // gets the value of the textarea in the modal
+    var userInput = ""
+    // concatinates the row hour value to the blank id created in line 43.  Adds the userInput text.
+    $("#" + rowHourValue).text(userInput);
+
+    // clears text area and modal
+    $("textarea").val("");
+    $('#myModal').modal('hide');
+
+    // create object to send to local storate
+    newEvent = {
+      "eventHour": rowHourValue,
+      "eventDescription": userInput
+    };
+    
+    // checks to see if there is already an event for the particular time.  If so, it replaces it with the latest event.
+    localStorage.setItem("newEvent", JSON.stringify(newEvent));
+    for (var i = 0; i < storedEvents.length; i++) {
+      if (storedEvents[i].eventHour === rowHourValue) {
+        storedEvents.splice(i, 1);
+        i--;
+      }
+    }
+    storedEvents.push(newEvent);
+    localStorage.setItem("newEvent", JSON.stringify(storedEvents));
+
+  })
 });
 
 
