@@ -4,7 +4,7 @@
 
 **Overview**
 
-This website allows the user to input events at each hour time block from 9 am to 5 pm.  When the page is refreshed the events will remain on the page.  All past hour blocks are grey, the current hour block is red, and future hour blocks are green.
+An app built to keep the busiest person on track. This website allows the user to input events at each hour time block from 9 am to 5 pm. When the page is refreshed the events will remain on the page. All past hour blocks are grey, the current hour block is red, and future hour blocks are green.
 
 **Technologies Used**
 
