@@ -9,7 +9,9 @@ This website allows the user to input events at each hour time block from 9 am t
 **Technologies Used**
 
 [jQuery](https://jquery.com/)
+
 [Moment.js](https://momentjs.com/)
+
 Local Storage
 
 **Deployed App**
